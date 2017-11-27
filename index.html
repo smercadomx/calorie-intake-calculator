@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calorie Intake Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calorie Intake Calculator</h1>
+      <form id="form" action="calculate" method="post">
+        <div class="field">
+          <label class="field__label field__label--main" for="age">Age</label>
+          <input class="field__box" id="age" type="number" name="age" required>
+        </div>
+        <fieldset class="field">
+          <legend class="field__label field__label--main">Sex</legend>
+          <input id="sex-male" type="radio" name="sex" value="male" required>
+          <label for="sex-male">Male</label>
+          <input id="sex-female" type="radio" name="sex" value="female" required>
+          <label for="sex-female">Female</label>
+        </fieldset>
+        <fieldset class="field">
+          <legend class="field__label field__label--main">Height</legend>
+          <div class="field">
+            <label class="field__label" for="height-feet">Feet</label>
+            <input class="field__box" id="height-feet" type="number" name="heightFeet" required>
+          </div>
+          <div class="field">
+            <label class="field__label" for="height-inches">Inches</label>
+            <input class="field__box" id="height-inches" type="number" name="heightInches">
+          </div>
+        </fieldset>
+        <div class="field">
+          <label class="field__label field__label--main" for="weight">Weight</label>
+          <input class="field__box" id="weight" type="number" name="weight" required>
+        </div>
+        <button type="submit">Calculate</button>
+      </form>
+      <div class="result" tabindex="-1"></div>
+    </div>
+
+    <script src="js/calorieCalculator.js"></script>
+    <script>
+      function toJSON(form) {
+    		let obj = {},
+          elements = form.querySelectorAll('input, select, textarea');
+
+    		for(let i = 0; i < elements.length; ++i ) {
+    			let element = elements[i],
+            name = element.name,
+            value = element.value;
+
+          if (element.type === 'radio' && element.checked === false) {
+            continue;
+          }
+
+    			if(name) {
+            obj[name] = value;
+    			}
+    		}
+
+    		return obj;
+    	}
+
+      window.calculatorForm = document.querySelector('#form');
+      let resultContainer = document.querySelector('.result');
+      let submitButton = document.querySelector('button');
+      let submitButtonLabel = submitButton.innerText;
+      calculatorForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        submitButton.innerText = 'loading...';
+
+        setTimeout(function () {
+          let formData = toJSON(calculatorForm);
+          let feetInCm = (parseFloat(formData.heightFeet, 10) * 30.48);
+          let inchesInCm = formData.heightInches ? (parseFloat(formData.heightInches, 10) * 2.54) : 0;
+          let heightInCm =  feetInCm + inchesInCm;
+          let result = getBMR(formData.age, formData.sex, heightInCm, formData.weight);
+
+          resultContainer.innerHTML = `Result: ${result.toFixed(0)} calories`;
+          resultContainer.focus();
+
+          submitButton.innerText = submitButtonLabel;
+        }, 250);
+
+      });
+    </script>
+  </body>
+</html>
