@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calorie Intake Calculator</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="src/css/styles.css">
   </head>
   <body>
     <div class="container">
@@ -41,52 +41,7 @@
       <div class="result" tabindex="-1"></div>
     </div>
 
-    <script src="js/calorieCalculator.js"></script>
-    <script>
-      function toJSON(form) {
-    		let obj = {},
-          elements = form.querySelectorAll('input, select, textarea');
-
-    		for(let i = 0; i < elements.length; ++i ) {
-    			let element = elements[i],
-            name = element.name,
-            value = element.value;
-
-          if (element.type === 'radio' && element.checked === false) {
-            continue;
-          }
-
-    			if(name) {
-            obj[name] = value;
-    			}
-    		}
-
-    		return obj;
-    	}
-
-      window.calculatorForm = document.querySelector('#form');
-      let resultContainer = document.querySelector('.result');
-      let submitButton = document.querySelector('button');
-      let submitButtonLabel = submitButton.innerText;
-      calculatorForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        submitButton.innerText = 'loading...';
-
-        setTimeout(function () {
-          let formData = toJSON(calculatorForm);
-          let feetInCm = (parseFloat(formData.heightFeet, 10) * 30.48);
-          let inchesInCm = formData.heightInches ? (parseFloat(formData.heightInches, 10) * 2.54) : 0;
-          let heightInCm =  feetInCm + inchesInCm;
-          let result = getBMR(formData.age, formData.sex, heightInCm, formData.weight);
-
-          resultContainer.innerHTML = `Result: ${result.toFixed(0)} calories`;
-          resultContainer.focus();
-
-          submitButton.innerText = submitButtonLabel;
-        }, 250);
-
-      });
-    </script>
+    <script src="dist/js/calorieCalculator.js"></script>
+    <script src="dist/js/main.js"></script>
   </body>
 </html>
