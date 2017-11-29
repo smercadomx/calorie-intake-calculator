@@ -1,8 +1,9 @@
 function toJSON(form) {
   let obj = {},
-    elements = form.querySelectorAll('input, select, textarea');
+    elements = form.querySelectorAll('input, select, textarea'),
+    i;
 
-  for(let i = 0; i < elements.length; ++i ) {
+  for (i = 0; i < elements.length; ++i) {
     let element = elements[i],
       name = element.name,
       value = element.value;
@@ -11,7 +12,7 @@ function toJSON(form) {
       continue;
     }
 
-    if(name) {
+    if (name) {
       obj[name] = value;
     }
   }
