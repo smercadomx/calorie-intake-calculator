@@ -3,7 +3,7 @@
 
 ## Run the app
 ```sh
-open index.html
+npm run serve
 ```
 
 ## License
