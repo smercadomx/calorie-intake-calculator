@@ -1,1 +1,49 @@
-'use strict';function toJSON(a){var b,c={},d=a.querySelectorAll('input, select, textarea');for(b=0;b<d.length;++b){var e=d[b],f=e.name,g=e.value;('radio'!==e.type||!1!==e.checked)&&f&&(c[f]=g)}return c}var calculatorForm=document.querySelector('#form'),resultContainer=document.querySelector('.result'),submitButton=document.querySelector('button'),submitButtonLabel=submitButton.innerText;calculatorForm.addEventListener('submit',function(a){a.preventDefault(),submitButton.innerText='loading...',setTimeout(function(){var a=toJSON(calculatorForm),b=30.48*parseFloat(a.heightFeet,10),c=a.heightInches?2.54*parseFloat(a.heightInches,10):0,d=getBMR(a.age,a.sex,b+c,a.weight);resultContainer.innerHTML='Result: '+d.toFixed(0)+' calories',resultContainer.focus(),submitButton.innerText=submitButtonLabel},250)});
+'use strict';
+
+function toJSON(form) {
+  var obj = {},
+      elements = form.querySelectorAll('input, select, textarea'),
+      i = void 0;
+
+  for (i = 0; i < elements.length; ++i) {
+    var element = elements[i],
+        name = element.name,
+        value = element.value;
+
+    if (element.type === 'radio' && element.checked === false) {
+      continue;
+    }
+
+    if (name) {
+      obj[name] = value;
+    }
+  }
+
+  return obj;
+}
+
+var calculatorForm = document.querySelector('#form');
+var resultContainer = document.querySelector('.result');
+var submitButton = document.querySelector('button');
+var submitButtonLabel = submitButton.innerText;
+
+calculatorForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  submitButton.innerText = 'loading...';
+
+  setTimeout(function () {
+    var formData = toJSON(calculatorForm);
+    var feetInCm = parseFloat(formData.heightFeet, 10) * 30.48;
+    var inchesInCm = formData.heightInches ? parseFloat(formData.heightInches, 10) * 2.54 : 0;
+    var heightInCm = feetInCm + inchesInCm;
+    var result = getBMR(formData.age, formData.sex, heightInCm, formData.weight) * parseFloat(formData.exercise, 10);
+
+    resultContainer.innerHTML = 'To maintain weight you need <strong>' + result.toFixed(2) + ' calories</strong><br>';
+    resultContainer.innerHTML += 'To loose 1lb a week you need <strong>' + (result - 500).toFixed(2) + ' calories</strong><br>';
+    resultContainer.innerHTML += 'To gain 1lb a week you need <strong>' + (result + 500).toFixed(2) + ' calories</strong>';
+    resultContainer.focus();
+
+    submitButton.innerText = submitButtonLabel;
+  }, 250);
+});

@@ -35,9 +35,11 @@ calculatorForm.addEventListener('submit', (e) => {
     let feetInCm = (parseFloat(formData.heightFeet, 10) * 30.48);
     let inchesInCm = formData.heightInches ? (parseFloat(formData.heightInches, 10) * 2.54) : 0;
     let heightInCm =  feetInCm + inchesInCm;
-    let result = getBMR(formData.age, formData.sex, heightInCm, formData.weight);
+    let result = getBMR(formData.age, formData.sex, heightInCm, formData.weight) * parseFloat(formData.exercise, 10);
 
-    resultContainer.innerHTML = `Result: ${result.toFixed(0)} calories`;
+    resultContainer.innerHTML = `To maintain weight you need <strong>${result.toFixed(2)} calories</strong><br>`;
+    resultContainer.innerHTML += `To loose 1lb a week you need <strong>${(result - 500).toFixed(2)} calories</strong><br>`;
+    resultContainer.innerHTML += `To gain 1lb a week you need <strong>${(result + 500).toFixed(2)} calories</strong>`;
     resultContainer.focus();
 
     submitButton.innerText = submitButtonLabel;
