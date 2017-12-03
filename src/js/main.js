@@ -28,6 +28,7 @@ let submitButtonLabel = submitButton.innerText;
 calculatorForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  submitButton.disabled = true;
   submitButton.innerText = 'loading...';
 
   setTimeout(() => {
@@ -43,5 +44,6 @@ calculatorForm.addEventListener('submit', (e) => {
     resultContainer.focus();
 
     submitButton.innerText = submitButtonLabel;
+    submitButton.disabled = false;
   }, 250);
 });

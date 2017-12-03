@@ -79,6 +79,10 @@ input[type="radio"] {
   color: #FFF;
 }
 
+.button:disabled {
+  opacity: 0.5;
+}
+
 .legend {
   margin-top: 10px;
   color: #6b6b6b;
