@@ -50,11 +50,13 @@ input[type="radio"] {
 .field__label {
   display: block;
   margin-bottom: 5px;
-}
-
-.field__label--main {
   font-size: 1.12rem;
   font-weight: bold;
+}
+
+.field__label--sub {
+  font-size: 1rem;
+  font-weight: normal;
 }
 
 .field__box {
@@ -81,4 +83,14 @@ input[type="radio"] {
   margin-top: 10px;
   color: #6b6b6b;
   font-size: 0.9rem;
+}
+
+.subfields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subfields__field {
+  flex-basis: 48%;
+  margin-bottom: 0;
 }

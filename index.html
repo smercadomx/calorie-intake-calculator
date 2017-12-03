@@ -11,29 +11,33 @@
       <h1>Calorie Intake Calculator</h1>
       <form id="form" action="calculate" method="post">
         <div class="field">
-          <label class="field__label field__label--main" for="age">Age</label>
+          <label class="field__label" for="age">Age</label>
           <input class="field__box" id="age" type="number" name="age" required>
         </div>
         <fieldset class="field">
-          <legend class="field__label field__label--main">Sex</legend>
+          <legend class="field__label">Sex</legend>
           <input id="sex-male" type="radio" name="sex" value="male" required>
           <label for="sex-male">Male</label>
           <input id="sex-female" type="radio" name="sex" value="female" required>
           <label for="sex-female">Female</label>
         </fieldset>
         <fieldset class="field">
-          <legend class="field__label field__label--main">Height</legend>
-          <div class="field">
-            <label class="field__label" for="height-feet">Feet</label>
-            <input class="field__box" id="height-feet" type="number" name="heightFeet" required>
+          <legend class="field__label">Height</legend>
+
+          <div class="subfields">
+            <div class="field subfields__field">
+              <label class="field__label field__label--sub" for="height-feet">Feet</label>
+              <input class="field__box" id="height-feet" type="number" step="any" name="heightFeet" required>
+            </div>
+            <div class="field subfields__field">
+              <label class="field__label field__label--sub" for="height-inches">Inches</label>
+              <input class="field__box" id="height-inches" type="number" step="any" name="heightInches">
+            </div>
           </div>
-          <div class="field">
-            <label class="field__label" for="height-inches">Inches</label>
-            <input class="field__box" id="height-inches" type="number" name="heightInches">
-          </div>
+
         </fieldset>
         <div class="field">
-          <label class="field__label field__label--main" for="weight">Weight</label>
+          <label class="field__label" for="weight">Weight</label>
           <input class="field__box" id="weight" type="number" name="weight" required>
         </div>
         <div class="field">
