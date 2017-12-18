@@ -57,7 +57,7 @@ calculatorForm.addEventListener('submit', function (e) {
     var heightInCm = feetInCm + inchesInCm;
     var result = getBMR(formData.age, formData.sex, heightInCm, formData.weight) * parseFloat(formData.exercise, 10);
 
-    resultContainer.innerHTML = 'To maintain weight you need <strong>' + result.toFixed(2) + ' calories</strong><br>';
+    resultContainer.innerHTML = 'changed To maintain weight you need <strong>' + result.toFixed(2) + ' calories</strong><br>';
     resultContainer.innerHTML += 'To loose 1lb a week you need <strong>' + (result - 500).toFixed(2) + ' calories</strong><br>';
     resultContainer.innerHTML += 'To gain 1lb a week you need <strong>' + (result + 500).toFixed(2) + ' calories</strong>';
     resultContainer.focus();
