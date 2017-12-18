@@ -8,6 +8,11 @@ if ('serviceWorker' in navigator) {
       console.log('ServiceWorker registration failed: ', err);
     });
   });
+} else if ('applicationCache' in window) {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = 'load-appcache.html'
+  document.body.appendChild(iframe);
 }
 
 function toJSON(form) {
