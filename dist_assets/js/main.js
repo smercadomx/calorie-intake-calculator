@@ -15,6 +15,21 @@ if ('serviceWorker' in navigator) {
   iframe.style.display = 'none';
   iframe.src = 'load-appcache.html';
   document.body.appendChild(iframe);
+
+  window.addEventListener('load', function (e) {
+
+    window.applicationCache.addEventListener('updateready', function (e) {
+      if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+        // Browser downloaded a new app cache.
+        if (confirm('A new version of this site is available. Load it?')) {
+          window.location.reload();
+        }
+      } else {
+        alert('Manifest didn\'t changed. Nothing new to server.');
+        // Manifest didn't changed. Nothing new to server.
+      }
+    }, false);
+  }, false);
 }
 
 function toJSON(form) {
