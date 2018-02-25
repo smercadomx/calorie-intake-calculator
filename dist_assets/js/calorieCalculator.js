@@ -1,1 +1,0 @@
-'use strict';function getBMR(a,b,c,d){var e=10*(d/2.20462)+6.25*c-5*a;return'female'===b?e-=161:e+=5,e}
