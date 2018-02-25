@@ -1,4 +1,7 @@
+import React from 'react';
+import {render} from 'react-dom';
 import getBMR from './calorieCalculator';
+import App from './App';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -51,6 +54,8 @@ function toJSON(form) {
 
   return obj;
 }
+
+render(<App />, document.body);
 
 let calculatorForm = document.querySelector('#form');
 let resultContainer = document.querySelector('.result');
