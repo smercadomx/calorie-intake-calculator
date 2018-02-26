@@ -1,20 +1,61 @@
 import React from 'react';
+import getBMR from './calorieCalculator';
 
 export default class App extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            age: null,
+            sex: null,
+            heightFeet: null,
+            heightInches: null,
+            weight: null,
+            exercise: 1.2,
+            result: null
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        this.setState({ result: this.getResult(this.state)});
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    getResult(formData) {
+        let feetInCm = (parseFloat(formData.heightFeet, 10) * 30.48);
+        let inchesInCm = formData.heightInches ? (parseFloat(formData.heightInches, 10) * 2.54) : 0;
+        let heightInCm =  feetInCm + inchesInCm;
+        return getBMR(formData.age, formData.sex, heightInCm, formData.weight) * parseFloat(formData.exercise, 10);
+    }
+
     render() {
         return (
             <div className="container">
                 <h1>Calorie Intake Calculator</h1>
-                <form id="form" action="calculate" method="post">
+                <form id="form" action="calculate" method="post" onSubmit={this.onSubmit}>
                     <div className="field">
                         <label className="field__label" for="age">Age</label>
-                        <input className="field__box" id="age" type="number" name="age" required />
+                        <input value={this.state.age} onChange={this.handleInputChange} className="field__box" id="age" type="number" name="age" required />
                     </div>
                     <fieldset className="field">
                         <legend className="field__label">Sex</legend>
-                        <input id="sex-male" type="radio" name="sex" value="male" required />
+                        <input id="sex-male" type="radio" name="sex" value="male" onChange={this.handleInputChange} checked={'male' === this.state.sex} required />
                         <label for="sex-male">Male</label>
-                        <input id="sex-female" type="radio" name="sex" value="female" required />
+                        <input id="sex-female" type="radio" name="sex" value="female" onChange={this.handleInputChange} checked={'female' === this.state.sex} required />
                         <label for="sex-female">Female</label>
                     </fieldset>
                     <fieldset className="field">
@@ -23,22 +64,22 @@ export default class App extends React.PureComponent {
                         <div className="subfields">
                             <div className="field subfields__field">
                                 <label className="field__label field__label--sub" for="height-feet">Feet</label>
-                                <input className="field__box" id="height-feet" type="number" step="any" name="heightFeet" required />
+                                <input className="field__box" id="height-feet" type="number" step="any" value={this.state.heightFeet} onChange={this.handleInputChange} name="heightFeet" required />
                             </div>
                             <div className="field subfields__field">
                                 <label className="field__label field__label--sub" for="height-inches">Inches</label>
-                                <input className="field__box" id="height-inches" type="number" step="any" name="heightInches" />
+                                <input className="field__box" id="height-inches" type="number" step="any" value={this.state.heightInches} onChange={this.handleInputChange} name="heightInches" />
                             </div>
                         </div>
 
                     </fieldset>
                     <div className="field">
                         <label className="field__label" for="weight">Weight</label>
-                        <input className="field__box" id="weight" type="number" name="weight" required />
+                        <input className="field__box" id="weight" type="number" value={this.state.weight} onChange={this.handleInputChange} name="weight" required />
                     </div>
                     <div className="field">
                         <label className="field__label field__label--main" for="exercise">Excersise Level</label>
-                        <select className="field__box" id="exercise" name="exercise" required>
+                        <select value={this.state.exercise} onChange={this.handleInputChange} className="field__box" id="exercise" name="exercise" required>
                             <option value="1.2">Little or no exercise</option>
                             <option value="1.375">Light exercise or sports - 1-3 days/week</option>
                             <option value="1.55">Moderate exercise or sports - 3-5 days/week</option>
@@ -48,7 +89,13 @@ export default class App extends React.PureComponent {
                     </div>
                     <button className="button" type="submit">Calculate</button>
                 </form>
-                <div className="result" tabindex="-1"></div>
+                {this.state.result &&
+                    <div className="result" tabindex="-1">
+                        To maintain weight you need <strong>{this.state.result.toFixed(2)} calories</strong><br />
+                        To loose 1lb a week you need <strong>{(this.state.result - 500).toFixed(2)} calories</strong><br />
+                        To gain 1lb a week you need <strong>{(this.state.result + 500).toFixed(2)} calories</strong>
+                    </div>
+                }
                 <div className="legend">This calculator uses the Mifflin-St Jeor Equation.</div>
             </div>   
         );

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "serve": "npm run build && open index.html",
-    "build:prod": "webpack -p"
+    "watch": "webpack --watch",
+    "serve": "npm run build && open index.html"
   },
   "repository": {
     "type": "git",
