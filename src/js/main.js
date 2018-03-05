@@ -32,32 +32,4 @@ if ('serviceWorker' in navigator) {
   }, false);
 }
 
-render(<App />, document.body);
-
-// let calculatorForm = document.querySelector('#form');
-// let resultContainer = document.querySelector('.result');
-// let submitButton = document.querySelector('button');
-// let submitButtonLabel = submitButton.innerText;
-
-// calculatorForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-
-//   submitButton.disabled = true;
-//   submitButton.innerText = 'loading...';
-
-//   setTimeout(() => {
-//     let formData = toJSON(calculatorForm);
-//     let feetInCm = (parseFloat(formData.heightFeet, 10) * 30.48);
-//     let inchesInCm = formData.heightInches ? (parseFloat(formData.heightInches, 10) * 2.54) : 0;
-//     let heightInCm =  feetInCm + inchesInCm;
-//     let result = getBMR(formData.age, formData.sex, heightInCm, formData.weight) * parseFloat(formData.exercise, 10);
-
-//     resultContainer.innerHTML = `To maintain weight you need <strong>${result.toFixed(2)} calories</strong><br>`;
-//     resultContainer.innerHTML += `To loose 1lb a week you need <strong>${(result - 500).toFixed(2)} calories</strong><br>`;
-//     resultContainer.innerHTML += `To gain 1lb a week you need <strong>${(result + 500).toFixed(2)} calories</strong>`;
-//     resultContainer.focus();
-
-//     submitButton.innerText = submitButtonLabel;
-//     submitButton.disabled = false;
-//   }, 250);
-// });
+render(<App />, document.querySelector('#app'));

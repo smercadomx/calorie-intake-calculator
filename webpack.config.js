@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist_assets'),
     filename: 'js/[name].js'
   },
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
