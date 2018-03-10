@@ -1,6 +1,8 @@
 import React from 'react';
 import getBMR from './calorieCalculator';
 
+import '../css/styles.css';
+
 export default class App extends React.PureComponent {
     state = {
         age: "",
@@ -38,7 +40,6 @@ export default class App extends React.PureComponent {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="container">
                 <h1>Calorie Intake Calculator</h1>
