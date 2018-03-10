@@ -1,10 +1,9 @@
-const cacheName = 'v1';
+const cacheName = 'v2';
 const cacheFiles = [
   './',
   './index.html',
-  './src/css/styles.css',
-  './dist_assets/js/calorieCalculator.js',
-  './dist_assets/js/main.js'
+  './dist/css/styles.css',
+  './dist/js/main.js'
 ];
 
 self.addEventListener('install', e => {

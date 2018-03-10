@@ -42,7 +42,7 @@ export default class App extends React.PureComponent {
     render() {
         return (
             <div className="container">
-                <h1>Calorie Intake Calculator</h1>
+                <h1>Calorie Intake Calculator Changed</h1>
                 <form id="form" action="calculate" method="post" onSubmit={this.onSubmit}>
                     <div className="field">
                         <label className="field__label" htmlFor="age">Age</label>
