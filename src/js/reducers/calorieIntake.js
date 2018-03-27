@@ -1,4 +1,4 @@
-import getBMR from '../bmr';
+import getBMR from '../modules/bmr';
 
 const calorieIntake = (state = null, action) => {
     switch (action.type) {

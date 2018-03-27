@@ -7,7 +7,7 @@ import {combineReducers} from 'redux';
 import calorieIntake from './reducers/calorieIntake';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {setupOffline} from './offline';
+import {setupOffline} from './modules/offline';
 
 setupOffline();
 
