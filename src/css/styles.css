@@ -98,3 +98,27 @@ input[type="radio"] {
   flex-basis: 48%;
   margin-bottom: 0;
 }
+
+.toggle {
+  position: relative;
+  border: 1px solid;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.toggle:before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  transition: left 250ms;
+}
+
+.toggle.on:before {
+  left: 0;
+  background-color: green;
+}

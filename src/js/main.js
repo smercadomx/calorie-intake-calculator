@@ -1,35 +1,31 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './App';
+import CalorieIntake from './containers/CalorieIntake';
+import MaxHeartRate from './containers/MaxHeartRate';
+import {createStore} from 'redux';
+import {combineReducers} from 'redux';
+import calorieIntake from './reducers/calorieIntake';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {setupOffline} from './offline';
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-} else if ('applicationCache' in window) {
-  var iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.src = 'load-appcache.html'
-  document.body.appendChild(iframe);
+setupOffline();
 
-  window.addEventListener('load', function(e) {
+const rootReducer = combineReducers({
+  calorieIntake
+});
 
-    window.applicationCache.addEventListener('updateready', e => {
-      if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-        // Browser downloaded a new app cache.
-        if (confirm('A new version of this site is available. Load it?')) {
-          window.location.reload();
-        }
-      }
-    }, false);
+const store = createStore(rootReducer);
 
-  }, false);
-}
-
-render(<App />, document.querySelector('#app'));
+render(
+  <div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <React.Fragment>
+            <Route path="/" component={CalorieIntake} />
+            <Route path="/test" component={MaxHeartRate} />
+        </React.Fragment>
+      </BrowserRouter>
+    </Provider>
+  </div>
+  , document.querySelector('#app'));
