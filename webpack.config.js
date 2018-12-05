@@ -6,10 +6,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = (env, { mode }) => {
   const devMode = mode === 'development';
 
-  console.log(devMode);
-
   return {
-    entry: ['./src/js/main.js'],
+    entry: ['./src/js/main.jsx'],
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'js/[name].js',
@@ -17,7 +15,7 @@ module.exports = (env, { mode }) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.jsx?$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
@@ -44,9 +42,12 @@ module.exports = (env, { mode }) => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
+        filename: 'css/[name].css',
+        chunkFilename: 'css/[id].css',
       }),
     ],
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
   };
 };

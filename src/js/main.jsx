@@ -26,6 +26,6 @@ render(
         </React.Fragment>
       </BrowserRouter>
     </Provider>
-  </div>
-  , document.querySelector('#app'),
+  </div>,
+  document.querySelector('#app'),
 );
