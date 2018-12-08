@@ -1,8 +1,8 @@
-const cacheName = 'v3';
+const cacheName = 'v6';
 const cacheFiles = [
   './',
   './index.html',
-  './dist/css/styles.css',
+  './dist/css/main.css',
   './dist/js/main.js'
 ];
 
