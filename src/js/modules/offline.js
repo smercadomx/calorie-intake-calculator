@@ -9,21 +9,5 @@ export default function setupOffline() {
         console.log('ServiceWorker registration failed: ', err);
       });
     });
-  } else if ('applicationCache' in window) {
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = 'load-appcache.html';
-    document.body.appendChild(iframe);
-
-    window.addEventListener('load', () => {
-      window.applicationCache.addEventListener('updateready', () => {
-        if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
-          // Browser downloaded a new app cache.
-          if (window.confirm('A new version of this site is available. Load it?')) {
-            window.location.reload();
-          }
-        }
-      }, false);
-    }, false);
   }
 }
