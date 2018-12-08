@@ -1,8 +1,7 @@
 CACHE MANIFEST
 
 /calorie-intake-calculator/
-/calorie-intake-calculator/src/css/styles.css
-/calorie-intake-calculator/dist_assets/js/calorieCalculator.js
-/calorie-intake-calculator/dist_assets/js/main.js
+/calorie-intake-calculator/src/css/main.css
+/calorie-intake-calculator/dist/js/main.js
 
-#v5
+#v6
