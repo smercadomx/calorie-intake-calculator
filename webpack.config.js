@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 module.exports = (env, { mode }) => {
   const devMode = mode === 'development';
@@ -9,7 +10,7 @@ module.exports = (env, { mode }) => {
   return {
     entry: ['./src/js/main.jsx'],
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'docs'),
       filename: 'js/[name].js',
     },
     module: {
@@ -44,6 +45,13 @@ module.exports = (env, { mode }) => {
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',
         chunkFilename: 'css/[id].css',
+      }),
+      new SWPrecacheWebpackPlugin({
+        staticFileGlobs: [
+          'docs/index.html',
+        ],
+        stripPrefix: 'docs/',
+        mergeStaticsConfig: true,
       }),
     ],
     resolve: {
