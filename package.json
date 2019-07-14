@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src/js/**/*.js*",
-    "build": "npm run lint && webpack",
+    "build": "npm run lint && webpack --mode production",
     "watch": "webpack --watch",
-    "serve": "npm run build && open index.html"
+    "serve": "npm run build && open docs/index.html"
   },
   "repository": {
     "type": "git",

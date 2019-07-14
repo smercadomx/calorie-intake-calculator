@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["css/main.css","2f2f8b668d54e83a50b20af5c673e9c5"],["index.html","581de7fa423627efab7b8287320a4c87"],["js/main.js","d1c3d2c61e18656e6daceaa8b722fa05"]];
+var precacheConfig = [["css/main.css","2f2f8b668d54e83a50b20af5c673e9c5"],["index.html","581de7fa423627efab7b8287320a4c87"],["js/main.js","dd9cfcab254cd9923556e4fd0d941852"]];
 var cacheName = 'sw-precache-v3-sw-precache-webpack-plugin-' + (self.registration ? self.registration.scope : '');
 
 
