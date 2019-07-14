@@ -13,6 +13,9 @@ module.exports = (env, { mode }) => {
       path: path.resolve(__dirname, 'docs'),
       filename: 'js/[name].js',
     },
+    devServer: {
+      contentBase: path.join(__dirname, 'docs')
+    },
     module: {
       rules: [
         {
