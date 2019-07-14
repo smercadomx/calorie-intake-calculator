@@ -1,65 +1,77 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Form from '../components/Form';
 import Result from '../components/Result';
 
 import '../../css/styles.css';
 
 class CalorieIntake extends React.PureComponent {
-    state = {
-      age: '',
-      sex: '',
-      heightFeet: '',
-      heightInches: '',
-      weight: '',
-      exercise: 1.2,
-    }
+  static propTypes = {
+    getBMR: PropTypes.func.isRequired,
+    calorieIntake: PropTypes.shape({
+      maintain: PropTypes.number,
+      loose: PropTypes.number,
+      gain: PropTypes.number,
+    }),
+  };
 
-    onSubmit = () => {
-      this.getBMR(this.state);
-    };
+  static defaultProps = {
+    calorieIntake: null,
+  };
+
+  state = {
+    age: '',
+    sex: '',
+    heightFeet: '',
+    heightInches: '',
+    weight: '',
+    exercise: 1.2,
+  }
+
+  onSubmit = () => {
+    this.getBMR(this.state);
+  };
+
+  getBMR({
+    heightFeet, heightInches, age, sex, weight, exercise,
+  }) {
+    const { getBMR } = this.props;
+    const feetInCm = (parseFloat(heightFeet, 10) * 30.48);
+    const inchesInCm = heightInches ? (parseFloat(heightInches, 10) * 2.54) : 0;
+    const heightInCm = feetInCm + inchesInCm;
 
     getBMR({
-      heightFeet, heightInches, age, sex, weight, exercise,
-    }) {
-      const feetInCm = (parseFloat(heightFeet, 10) * 30.48);
-      const inchesInCm = heightInches ? (parseFloat(heightInches, 10) * 2.54) : 0;
-      const heightInCm = feetInCm + inchesInCm;
+      age, sex, weight, exercise, heightInCm,
+    });
+  }
 
-      this.props.getBMR({
-        age, sex, weight, exercise, heightInCm,
-      });
-    }
+  handleInputChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({
+      [target.name]: value,
+    });
+  };
 
-    handleInputChange = (event) => {
-      const target = event.target;
-      const value = target.type === 'checkbox' ? target.checked : target.value;
-      const name = target.name;
+  render() {
+    const { calorieIntake } = this.props;
 
-      this.setState({
-          [name]: value,
-      });
-    };
+    return (
+      <div className="container">
+        <h1>Calorie Intake Calculator</h1>
 
-    render() {
-      const { calorieIntake } = this.props;
+        <Form
+          data={this.state}
+          handleInputChange={this.handleInputChange}
+          onSubmit={this.onSubmit}
+        />
 
-      return (
-        <div className="container">
-          <h1>Calorie Intake Calculator</h1>
+        <Result calorieIntake={calorieIntake} />
 
-          <Form
-            data={this.state}
-            handleInputChange={this.handleInputChange}
-            onSubmit={this.onSubmit}
-          />
-
-          <Result calorieIntake={calorieIntake} />
-
-          <div className="legend">This calculator uses the Mifflin-St Jeor Equation.</div>
-        </div>
-      );
-    }
+        <div className="legend">This calculator uses the Mifflin-St Jeor Equation.</div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = ({ calorieIntake }) => ({

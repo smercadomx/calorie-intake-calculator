@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function renderUI(calorieIntake) {
   return (
@@ -35,6 +36,18 @@ function renderUI(calorieIntake) {
 }
 
 export default class Result extends React.PureComponent {
+  static propTypes = {
+    calorieIntake: PropTypes.shape({
+      maintain: PropTypes.number,
+      loose: PropTypes.number,
+      gain: PropTypes.number,
+    }),
+  };
+
+  static defaultProps = {
+    calorieIntake: null,
+  };
+
   render() {
     const { calorieIntake } = this.props;
 
