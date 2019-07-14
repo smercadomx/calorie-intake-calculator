@@ -4,10 +4,9 @@
   "description": "> Calorie Intake Calculator",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/js/**/*.js*",
-    "build": "npm run lint && webpack --mode production",
     "start": "webpack-dev-server --open",
-    "test": "jest"
+    "test": "jest",
+    "build": "npm run test && webpack --mode production"
   },
   "jest": {
     "moduleNameMapper": {
